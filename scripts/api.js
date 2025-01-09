@@ -16,7 +16,7 @@ function getMovies() {
     .then((res) => res.json())
     .then((data) => {
       const dataIndex = data["results"];
-      const movieList = document.querySelector("#movie-container");
+      const movieList = document.querySelector("#movie-list");
 
       movieList.innerHTML = "";
 
