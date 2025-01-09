@@ -1,0 +1,94 @@
+/* css 리셋 & 폰트 */
+@import url(./reset.css);
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #efefef;
+}
+
+/* header */
+header {
+  background-color: #323232;
+  color: #fefefe;
+  font-weight: 400;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-family: "Noto Sans KR", serif;
+  font-size: 30px;
+  margin: 20px;
+}
+
+/* 검색 역영 */
+#search-box {
+  display: block;
+  width: 60%;
+  height: 40px;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 0 2%;
+}
+
+#bookmark {
+  display: block;
+  height: 30px;
+  background-color: #323232;
+  color: #efefef;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  margin: 10px auto;
+}
+
+/* 영화 카드 목록 */
+#movie-container{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+.movieCardsArea .movieCard {
+  background-color: var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px #44444450;
+  cursor: pointer;
+}
+
+.movieInfo {
+  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+}
+
+.thumbnail img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+.movieInfo .title {
+  font-weight: var(--font-bold);
+  font-size: 1.02em;
+  letter-spacing: -0.008em;
+}
+
+.movieCardsArea .movieCard .rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.movieCardsArea .movieCard .rating::before {
+  content: "⭐";
+  display: block;
+}

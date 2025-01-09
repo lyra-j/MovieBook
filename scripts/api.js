@@ -12,7 +12,6 @@ function getMovies() {
     },
   };
 
-
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
@@ -24,18 +23,17 @@ function getMovies() {
       dataIndex.forEach((e) => {
         const movie_id = e["id"];
         const movie_poster =
-          "https://image.tmdb.org/t/p/w500/" + e["poster_path"];
+          "https://image.tmdb.org/t/p/w200/" + e["poster_path"];
         const movie_title = e["title"];
         const movie_average = e["vote_average"];
 
-        let temp_html = `<div class="movieCards">
-      <img src="${movie_poster}" alt="${movie_title}" />
+        let temp_html = `<img src="${movie_poster}" alt="${movie_title}" />
       <div>
         <h3>${movie_title}</h3>
         <p>평점 : ${movie_average}</p>
-      </div>
-    </div>`;
+      </div>`;
         const movieDiv = document.createElement("div");
+        movieDiv.className += "movieCards";
         movieDiv.innerHTML = temp_html;
         movieList.appendChild(movieDiv);
       });
