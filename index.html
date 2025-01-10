@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/style.css" />
-    <title>Movie Finder</title>
+    <title>Movie Book</title>
   </head>
   <body>
     <header>
       <h1 id="title">영화 검색</h1>
-      <input id="search-box" type="text" placeholder="영화를 검색하세요..." />
+      <input id="searchInput" type="text" placeholder="영화를 검색하세요..." />
       <button id="bookmark">북마크 보기</button>
     </header>
 
     <main>
-      <div id="movie-container">
-        <div id="movie-list">
+      <div id="movieWrap">
+        <div id="movieList">
           <!-- 영화 카드 들어갈 곳 -->
           <div class="movieCards">
             <img class="thumbnail" src="" alt="" />
@@ -32,7 +32,7 @@
     <footer></footer>
 
     <script src="/scripts/apikey.js"></script>
-    <script src="/scripts/api.js"></script>
-    <script src="/scripts/ui.js"></script>
+    <script type="module" src="/scripts/api.js"></script>
+    <script type="module" src="/scripts/ui.js"></script>
   </body>
 </html>
