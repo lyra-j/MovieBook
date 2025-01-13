@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/style.css" />
+
     <title>Movie Book</title>
   </head>
   <body>
@@ -13,6 +14,15 @@
       <input id="searchInput" type="text" placeholder="영화를 검색하세요..." />
       <button id="bookmark">북마크 보기</button>
     </header>
+
+    <!-- modal -->
+    <div id="movieModal">
+      <div class="modalContent">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">제목</h2>
+        <p id="modal-body">상세내용</p>
+      </div>
+    </div>
 
     <main>
       <div id="movieWrap">
@@ -28,8 +38,6 @@
         </div>
       </div>
     </main>
-
-    <footer></footer>
 
     <script src="/scripts/apikey.js"></script>
     <script type="module" src="/scripts/api.js"></script>
