@@ -1,3 +1,6 @@
+const movieList = document.getElementById("movieList");
+const modalClose = document.querySelector(".close");
+
 // 영화 정보 fetch >>> api.js수정하며 import형식으로 변경하기
 function fetchMovies() {
   fetch(
@@ -45,8 +48,6 @@ function filtering(data, search) {
 function search() {
   const searchInput = document.getElementById("searchInput");
   const searchText = searchInput.Value.trim().toLowerCase();
-  const movieList = document.getElementById("movieList");
-
   // 기존 영화 목록 삭제
   movieList.innerHTML = "";
 
@@ -58,3 +59,26 @@ function search() {
   const filteredMovies = filtering(movies, searchText);
   displayMovies(filteredMovies);
 }
+
+// document.getElementById("searchInput").addEventListener("keyup", (event) => {
+//   if (event.key === "Enter") {
+//     const keyword = document.getElementById("searchInput").vlaue.trim();
+//     if (keyword) {
+//       search(keyword);
+//     }
+//   }
+// });
+
+// modal test
+movieList.addEventListener("click", function (e) {
+  // alert("test");
+  console.log(e.target); // 이벤트종류(e) / e.target : 선택한 대상
+
+  //모달 상세를 fetching 로직 필요
+
+  movieModal.style.display = "block";
+});
+
+modalClose.addEventListener("click", function () {
+  movieModal.style.display = "none";
+});
