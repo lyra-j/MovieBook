@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
 
     <title>Movie Book</title>
   </head>
@@ -12,35 +12,47 @@
     <header>
       <h1 id="title">영화 검색</h1>
       <input id="searchInput" type="text" placeholder="영화를 검색하세요..." />
-      <button id="bookmark">북마크 보기</button>
+      <button id="bookmarkBtn">북마크 보기</button>
     </header>
 
     <!-- modal -->
     <div id="movieModal">
       <div class="modalContent">
-        <span class="close">&times;</span>
-        <h2 id="modal-title">제목</h2>
-        <p id="modal-body">상세내용</p>
+        <!-- <div class="modalDetail">
+          <div class="modalPoster">
+          <img src="포스터.url" />
+        </div>
+        <div>
+          <h2 class="modalMovieTitle">제목${.title}</h2>
+          <p class="modalMovieOverview">상세내용${.overview}</p>
+          <span class="releaseDate">개봉일자 : ${release_date}</span>
+          <span class="rating">평점 : ${.vote_average}</span>
+          <button type="button" class="addBookmark" data-id="${.id}">
+          북마크 추가
+        </button> 
+        </div>
+        <button type="button" class="close">&times;</button>
+      </div>-->
       </div>
     </div>
 
     <main>
-      <div id="movieWrap">
-        <div id="movieList">
-          <!-- 영화 카드 들어갈 곳 -->
-          <div class="movieCards">
-            <img class="thumbnail" src="" alt="" />
-            <div>
-              <h3 class="">영화제목</h3>
-              <p class="">평점</p>
-            </div>
-          </div>
-        </div>
+      <div id="movieListWrap">
+        <ul id="moviePostList">
+          <!-- 영화 카드 들어갈 곳 
+          <li class="movieItem" data-id="${movie.id}">
+            <div class='poster'>
+              <img src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.title}' />
+              <div class='movieInfo'>
+              <h3>${movie.title}</h3>
+              <p>평점 :${movie.vote_average}</p>
+              </div>
+              </div>
+          </li>-->
+        </ul>
       </div>
     </main>
 
-    <script src="/scripts/apikey.js"></script>
-    <script type="module" src="/scripts/api.js"></script>
-    <script type="module" src="/scripts/ui.js"></script>
+    <script type="module" src="./scripts/ui.js"></script>
   </body>
 </html>
