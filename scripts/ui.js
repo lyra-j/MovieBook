@@ -1,37 +1,101 @@
-const movieList = document.getElementById("movieList");
-const modalClose = document.querySelector(".close");
+import { fetchMovies } from "./api.js"; // (완)
 
-// 영화 정보 fetch >>> api.js수정하며 import형식으로 변경하기
-function fetchMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/movie/popular?language=ko&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      movies = response.results; // 영화 데이터를 배열에 저장
-      displayMovies(movies); // 영화 카드 표시 함수 호출
-    })
-    .catch((err) => console.error(err));
-}
+// 필요한 변수들 모아두기
+const moviePostUl = document.getElementById("moviePostList"); // 영화 포스트 붙일곳
+const searchInput = document.getElementById("searchInput"); // 검색어 input box
+const movieModal = document.getElementById("movieModal"); // 모달창
+const modalClose = document.querySelector(".close"); // 모달 닫기 버튼
 
-// 영화 카드 html 표시
-function displayMovies(movies) {
-  const movieList = document.getElementById("movieList");
+//
+let url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1"; // 기본 영화 목록 URL,한국어
+let postArray = []; // 검색을 위해 데이터를 저장할 빈 배열
+
+//
+//함수들 기록
+//
+
+// 1. 영화 정보 가져와서 붙이기(완)
+const displayPosts = function (movies) {
+  postArray = movies;
+
+  let post_html = "";
 
   movies.forEach((movie) => {
-    const temp_html = `<img class="thumbnail" src="${movie.poster_path}" alt="${movie.title}" />
-  <div>
+    post_html += `
+    <li class='movieItem' data-id='${movie.id}'>
+    <div class='poster'>
+    <img src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.title}' />
+    <div class='movieInfo'>
     <h3>${movie.title}</h3>
-    <p>평점 : ${movie.vote_average}</p>
-  </div>`;
-
-    const movieDiv = document.createElement("div"); // 컨텐츠가 들어갈 div 박스 생성 후 클래스명 주기
-    movieDiv.className += "movieCards";
-    movieDiv.innerHTML = temp_html; //  받아온 자료로 html에 원하는 값만 붙여넣기
-    movieList.appendChild(movieDiv); // movieList의 하위 노드로 붙여 넣기
+    <p>평점 :${movie.vote_average}</p>
+    </div>
+    </div>
+    </li>
+    `;
+    moviePostUl.innerHTML = post_html;
   });
-}
+};
+
+// 화면 표기하기 위해 함수 호출(완)
+fetchMovies(url).then(function (movies) {
+  // console.log(movies);
+  displayPosts(movies);
+});
+
+// 2. 모달 띄우기 (완)>
+const openModal = function (e) {
+  let movieItem = e.target.closest("li");
+
+  if (movieItem && moviePostUl.contains(movieItem)) {
+    const movieId = movieItem.getAttribute("data-id");
+    const matchPost = postArray.find(function (movie) {
+      return movie.id == movieId;
+    });
+    if (matchPost) {
+      // console.log(matchPost.id); // 영화 ID를 출력
+      renderPostDetails(matchPost);
+      movieModal.style.display = "block";
+    }
+  }
+};
+
+// 3. 모달 닫기 (완)
+const closeModal = function (e) {
+  if (e.target.closest("button").classList.contains("close")) {
+    movieModal.style.display = "none";
+  }
+};
+
+// 4. 모달 상세 내용
+const renderPostDetails = function (movie) {
+  let post_details = `<div class="modalDetail">
+        <div class="modalPoster">
+          <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path} alt="${movie.title}" />
+        </div>
+        <div>
+          <h2 class="modalMovieTitle">${movie.title}</h2>
+          <p class="modalMovieOverview">${movie.overview}</p>
+          <span class="releaseDate">개봉일자 : ${movie.release_date}</span>
+          <span class="rating">평점 : ${movie.vote_average}</span>
+          <button type="button" class="addBookmark" data-id="${movie.id}">
+          북마크 추가
+        </button>
+        </div>
+        <button type="button" class="close">&times;</button>
+        </div>
+`;
+  document.querySelector(".modalContent").innerHTML = post_details;
+};
+
+moviePostUl.addEventListener("click", function (e) {
+  openModal(e);
+});
+
+movieModal.addEventListener("click", function (e) {
+  closeModal(e);
+});
+
+// 여기까지는 확인 완료
 
 // 키워드로 영화 필터링 >>>>>다시 확인
 function filtering(data, search) {
@@ -68,17 +132,3 @@ function search() {
 //     }
 //   }
 // });
-
-// modal test
-movieList.addEventListener("click", function (e) {
-  // alert("test");
-  console.log(e.target); // 이벤트종류(e) / e.target : 선택한 대상
-
-  //모달 상세를 fetching 로직 필요
-
-  movieModal.style.display = "block";
-});
-
-modalClose.addEventListener("click", function () {
-  movieModal.style.display = "none";
-});
