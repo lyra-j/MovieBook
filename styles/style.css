@@ -84,8 +84,9 @@ main {
   cursor: pointer;
 }
 
-.poster {
+.poster img {
   width: 100%;
+
   object-fit: cover;
 }
 
