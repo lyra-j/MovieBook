@@ -37,14 +37,19 @@ const displayPosts = function (movies) {
 
 // 2. 모달 띄우기 (완)>
 const openModal = function (e) {
+  // 선택된 요소중에서 가장 가까운 <li>를 찾아서 반환
   let movieItem = e.target.closest("li");
   // console.log(movieItem);
 
+  // movieItem에 저장된 값이 있고 moviePostUl하위요소에 movieItem이 있다면
+  // movieItem에서 data-id속성 가져와서 postArray배열에 있는 내용중 id가 일치하는 첫번째 요소 반환
   if (movieItem && moviePostUl.contains(movieItem)) {
     const movieId = movieItem.getAttribute("data-id");
     const matchPost = postArray.find(function (movie) {
       return movie.id == movieId;
     });
+
+    // id가 일치하는 matchPost가 있다면 해당 내용을 표기하고 모달창을 보이도록 하기
     if (matchPost) {
       // console.log(matchPost.id); // 영화 ID를 출력
       renderPostDetails(matchPost);
@@ -55,6 +60,8 @@ const openModal = function (e) {
 
 // 3. 모달 닫기 (완)
 const closeModal = function (e) {
+  // 모달창이 띄워진 후 배경의 반투한 부분을 선택하거나, close 클래스를가진 <span>을 선택하면 모달창을 보이지 않게 숨기기
+
   if (
     e.target.classList.contains("modalBackground") ||
     e.target.closest("span").classList.contains("close")
@@ -93,7 +100,7 @@ const searchMovies = function (searchKeyword) {
   });
 };
 
-// 화면 표기하기 위해 함수 호출(완)
+// 최초 화면 표기하기 위해 함수 호출(완)
 fetchMovies(url).then(function (movies) {
   // console.log(movies);
   displayPosts(movies);

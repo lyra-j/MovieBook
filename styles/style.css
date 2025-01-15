@@ -130,7 +130,7 @@ main {
 
 .modalContent {
   background-color: white;
-  margin: 5% auto;
+  margin: 5% auto;  /* 모달 위치 */
   padding: 25px;
   width: 32%;
   position: relative;
