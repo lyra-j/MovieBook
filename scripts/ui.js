@@ -4,11 +4,10 @@ import { fetchMovies } from "./api.js"; // (완)
 const moviePostUl = document.getElementById("moviePostList"); // 영화 포스트 붙일곳
 const searchInput = document.getElementById("searchInput"); // 검색어 input box
 const movieModal = document.getElementById("movieModal"); // 모달창
-const modalClose = document.querySelector(".close"); // 모달 닫기 버튼
 
 //
 let url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1"; // 기본 영화 목록 URL,한국어
-let postArray = []; // 검색을 위해 데이터를 저장할 빈 배열
+let postArray = []; // 데이터를 저장할 빈 배열
 
 //
 //함수들 기록
@@ -36,15 +35,10 @@ const displayPosts = function (movies) {
   });
 };
 
-// 화면 표기하기 위해 함수 호출(완)
-fetchMovies(url).then(function (movies) {
-  // console.log(movies);
-  displayPosts(movies);
-});
-
 // 2. 모달 띄우기 (완)>
 const openModal = function (e) {
   let movieItem = e.target.closest("li");
+  // console.log(movieItem);
 
   if (movieItem && moviePostUl.contains(movieItem)) {
     const movieId = movieItem.getAttribute("data-id");
@@ -61,7 +55,10 @@ const openModal = function (e) {
 
 // 3. 모달 닫기 (완)
 const closeModal = function (e) {
-  if (e.target.closest("button").classList.contains("close")) {
+  if (
+    e.target.classList.contains("modalBackground") ||
+    e.target.closest("span").classList.contains("close")
+  ) {
     movieModal.style.display = "none";
   }
 };
@@ -69,23 +66,29 @@ const closeModal = function (e) {
 // 4. 모달 상세 내용
 const renderPostDetails = function (movie) {
   let post_details = `<div class="modalDetail">
+        <span class="close">&times;</span>
         <div class="modalPoster">
           <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path} alt="${movie.title}" />
         </div>
-        <div>
+        <div class="movieDetail">
           <h2 class="modalMovieTitle">${movie.title}</h2>
           <p class="modalMovieOverview">${movie.overview}</p>
           <span class="releaseDate">개봉일자 : ${movie.release_date}</span>
-          <span class="rating">평점 : ${movie.vote_average}</span>
+          <span class="rating">평점 : ⭐️ ${movie.vote_average}</span>
           <button type="button" class="addBookmark" data-id="${movie.id}">
           북마크 추가
         </button>
         </div>
-        <button type="button" class="close">&times;</button>
         </div>
 `;
   document.querySelector(".modalContent").innerHTML = post_details;
 };
+
+// 화면 표기하기 위해 함수 호출(완)
+fetchMovies(url).then(function (movies) {
+  // console.log(movies);
+  displayPosts(movies);
+});
 
 moviePostUl.addEventListener("click", function (e) {
   openModal(e);
