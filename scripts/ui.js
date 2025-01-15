@@ -63,7 +63,7 @@ const closeModal = function (e) {
   }
 };
 
-// 4. 모달 상세 내용
+// 4. 모달 상세 내용 (완)
 const renderPostDetails = function (movie) {
   let post_details = `<div class="modalDetail">
         <span class="close">&times;</span>
@@ -84,54 +84,37 @@ const renderPostDetails = function (movie) {
   document.querySelector(".modalContent").innerHTML = post_details;
 };
 
+// 5. 키워드를 포함한 영화 목록 찾기
+const searchMovies = function (searchKeyword) {
+  let searchUrl = `https://api.themoviedb.org/3/search/movie?query=${searchKeyword}&include_adult=false&language=ko&page=1`;
+
+  fetchMovies(searchUrl).then(function (movies) {
+    displayPosts(movies);
+  });
+};
+
 // 화면 표기하기 위해 함수 호출(완)
 fetchMovies(url).then(function (movies) {
   // console.log(movies);
   displayPosts(movies);
 });
 
+// 모달 띄우기 호출
 moviePostUl.addEventListener("click", function (e) {
   openModal(e);
 });
 
+// 모달 닫기 호출
 movieModal.addEventListener("click", function (e) {
   closeModal(e);
 });
 
-// 여기까지는 확인 완료
+// 엔터키로 검색 실행시 호출되는 함수
+searchInput.addEventListener("keyup", function (e) {
+  // 인풋박스에 들어온 값에서 앞 뒤 필요없는 공백값을 제거하고 모두 소문자로 변환 후 비교하여 찾기
+  const searchKeyword = searchInput.value.trim().toLowerCase();
 
-// 키워드로 영화 필터링 >>>>>다시 확인
-function filtering(data, search) {
-  const searchKeywords = search.toLowerCase().split(" ");
-
-  return data.filter((movie) => {
-    const movieTitle = movie.title.toLowerCase().replace(/\s/g, "");
-
-    return searchKeywords.every((keyword) => movieTitle.includes(keyword));
-  });
-}
-
-// 검색 실행시 호출되는 함수
-function search() {
-  const searchInput = document.getElementById("searchInput");
-  const searchText = searchInput.Value.trim().toLowerCase();
-  // 기존 영화 목록 삭제
-  movieList.innerHTML = "";
-
-  if (searchText === "") {
-    displayMovies(movies);
-    return;
+  if (e.key === "Enter") {
+    searchMovies(searchKeyword);
   }
-
-  const filteredMovies = filtering(movies, searchText);
-  displayMovies(filteredMovies);
-}
-
-// document.getElementById("searchInput").addEventListener("keyup", (event) => {
-//   if (event.key === "Enter") {
-//     const keyword = document.getElementById("searchInput").vlaue.trim();
-//     if (keyword) {
-//       search(keyword);
-//     }
-//   }
-// });
+});
