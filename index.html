@@ -12,26 +12,29 @@
     <header>
       <h1 id="title">영화 검색</h1>
       <input id="searchInput" type="text" placeholder="영화를 검색하세요..." />
-      <button id="bookmarkBtn">북마크 보기</button>
+      <button type="button" id="bookmarkBtn">북마크 보기</button>
     </header>
 
     <!-- modal -->
     <div id="movieModal">
+      <!-- 모달 밖을 선택하면 모달창을 닫을 수 있게 하기 위한 장치 modalBackground 추가, 없으면 리스트 목록들이 계속 선택됨 -->
+      <div class="modalBackground"></div>
       <div class="modalContent">
-        <!-- <div class="modalDetail">
+        <!-- 
+        <div class="modalDetail">
+          <span class="close">&times;</span>
           <div class="modalPoster">
-          <img src="포스터.url" />
-        </div>
-        <div>
-          <h2 class="modalMovieTitle">제목${.title}</h2>
-          <p class="modalMovieOverview">상세내용${.overview}</p>
-          <span class="releaseDate">개봉일자 : ${release_date}</span>
-          <span class="rating">평점 : ${.vote_average}</span>
+            <img src="포스터.url" />
+          </div>
+          <div class="movieDetail">
+            <h2 class="modalMovieTitle">제목${.title}</h2>
+            <p class="modalMovieOverview">상세내용${.overview}</p>
+            <span class="releaseDate">개봉일자 : ${release_date}</span>
+            <span class="rating">평점 : ${.vote_average}</span>
           <button type="button" class="addBookmark" data-id="${.id}">
           북마크 추가
         </button> 
-        </div>
-        <button type="button" class="close">&times;</button>
+        </div>        
       </div>-->
       </div>
     </div>
@@ -47,7 +50,7 @@
               <h3>${movie.title}</h3>
               <p>평점 :${movie.vote_average}</p>
               </div>
-              </div>
+            </div>
           </li>-->
         </ul>
       </div>
